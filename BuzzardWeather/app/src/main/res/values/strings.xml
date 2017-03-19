@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Leighton Buzzard Weather</string>
+    <string name="temperature">%1$.0f\u2103</string>
+</resources>
