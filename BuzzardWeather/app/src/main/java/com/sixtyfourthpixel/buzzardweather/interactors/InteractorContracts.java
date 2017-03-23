@@ -1,13 +1,13 @@
 package com.sixtyfourthpixel.buzzardweather.interactors;
 
 
-import com.sixtyfourthpixel.buzzardweather.model.local.MultiDayForecast;
+import com.sixtyfourthpixel.buzzardweather.interactors.responses.MultiDayForecastResponse;
 
 import io.reactivex.Observable;
 
 
 public interface InteractorContracts {
 	interface WeatherApi {
-		Observable<MultiDayForecast> getForecast(String city);
+		Observable<MultiDayForecastResponse> getForecast(String city);
 	}
 }

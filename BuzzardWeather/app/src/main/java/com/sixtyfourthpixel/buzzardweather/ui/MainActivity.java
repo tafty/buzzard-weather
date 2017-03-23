@@ -5,6 +5,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.widget.Toast;
 
 import com.sixtyfourthpixel.buzzardweather.BuzzardWeatherApplication;
 import com.sixtyfourthpixel.buzzardweather.R;
@@ -57,5 +58,10 @@ public class MainActivity extends AppCompatActivity implements MainContracts.Vie
 		mainFragmentPagerAdapter.setForecast(forecast);
 		viewPager.clearOnPageChangeListeners();
 		tabLayout.setupWithViewPager(viewPager);
+	}
+
+	@Override
+	public void showError(String message) {
+		Toast.makeText(this, message, Toast.LENGTH_LONG).show();
 	}
 }

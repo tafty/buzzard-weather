@@ -1,7 +1,7 @@
 package com.sixtyfourthpixel.buzzardweather.interactors;
 
 
-import com.sixtyfourthpixel.buzzardweather.model.local.MultiDayForecast;
+import com.sixtyfourthpixel.buzzardweather.interactors.responses.MultiDayForecastResponse;
 import com.sixtyfourthpixel.buzzardweather.model.mappers.MultiDayForecastMapper;
 import com.sixtyfourthpixel.buzzardweather.service.OpenWeatherMapApi;
 
@@ -24,12 +24,14 @@ public class WeatherData implements InteractorContracts.WeatherApi {
 	}
 
 	@Override
-	public Observable<MultiDayForecast> getForecast(String city) {
+	public Observable<MultiDayForecastResponse> getForecast(String city) {
 		OpenWeatherMapApi api = retrofit.create(OpenWeatherMapApi.class);
 
 		return api.getForecast(city, API_ID, UNITS)
 				.subscribeOn(Schedulers.io())
 				.observeOn(AndroidSchedulers.mainThread())
-				.map(cityForecast -> multiDayForecastMapper.map(cityForecast, DAYS_TO_FORECAST));
+				.map(cityForecast -> multiDayForecastMapper.map(cityForecast, DAYS_TO_FORECAST))
+				.map(MultiDayForecastResponse::new)
+				.onErrorReturn(MultiDayForecastResponse::new);
 	}
 }

@@ -14,7 +14,7 @@ import static com.sixtyfourthpixel.buzzardweather.Constants.WEATHER_ICON_URL_PLA
 
 public class MultiDayForecastMapper {
 	public MultiDayForecast map(CityForecast cityForecast, int limit) {
-		if (cityForecast == null) {
+		if (cityForecast == null || cityForecast.getForecasts() == null || cityForecast.getForecasts().size() == 0) {
 			return null;
 		}
 
