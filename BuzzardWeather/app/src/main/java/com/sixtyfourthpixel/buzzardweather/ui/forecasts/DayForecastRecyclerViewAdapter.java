@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.sixtyfourthpixel.buzzardweather.R;
 import com.sixtyfourthpixel.buzzardweather.model.local.DayForecast;
 import com.sixtyfourthpixel.buzzardweather.model.local.TimeForecast;
+import com.sixtyfourthpixel.buzzardweather.ui.widget.WindView;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
@@ -52,6 +53,8 @@ class DayForecastRecyclerViewAdapter extends RecyclerView.Adapter<DayForecastRec
 
 		holder.temperature.setText(context.getString(R.string.temperature, forecast.temperature));
 
+		holder.wind.setWind(forecast.windSpeed, forecast.windAngle);
+
 		StringBuilder description = new StringBuilder(forecast.description);
 		description.setCharAt(0, Character.toUpperCase(description.charAt(0)));
 		holder.description.setText(description.toString());
@@ -70,6 +73,8 @@ class DayForecastRecyclerViewAdapter extends RecyclerView.Adapter<DayForecastRec
 		ImageView icon;
 		@BindView(R.id.temperature)
 		TextView temperature;
+		@BindView(R.id.wind_view)
+		WindView wind;
 		@BindView(R.id.description)
 		TextView description;
 

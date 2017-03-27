@@ -6,6 +6,7 @@ import com.sixtyfourthpixel.buzzardweather.model.openweathermap.Atmosphere;
 import com.sixtyfourthpixel.buzzardweather.model.openweathermap.CityForecast;
 import com.sixtyfourthpixel.buzzardweather.model.openweathermap.Forecast;
 import com.sixtyfourthpixel.buzzardweather.model.openweathermap.Weather;
+import com.sixtyfourthpixel.buzzardweather.model.openweathermap.Wind;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -31,21 +32,29 @@ public class MultiDayForecastMapperTests {
 	private static final String WEATHER_ICON_1 = "WEATHER_ICON_1";
 	private static final String WEATHER_ICON_URL_1 = "http://openweathermap.org/img/w/WEATHER_ICON_1.png";
 	private static final double ATMOSPHERE_TEMPERATURE_1 = 1.0;
+	private static final double WIND_DEGREES_1 = 45.0;
+	private static final double WIND_SPEED_1 = 2.0;
 
 	private static final String WEATHER_DESCRIPTION_2 = "WEATHER_DESCRIPTION_2";
 	private static final String WEATHER_ICON_2 = "WEATHER_ICON_2";
 	private static final String WEATHER_ICON_URL_2 = "http://openweathermap.org/img/w/WEATHER_ICON_2.png";
 	private static final double ATMOSPHERE_TEMPERATURE_2 = 2.0;
+	private static final double WIND_DEGREES_2 = 90.0;
+	private static final double WIND_SPEED_2 = 4.0;
 
 	private static final String WEATHER_DESCRIPTION_3 = "WEATHER_DESCRIPTION_3";
 	private static final String WEATHER_ICON_3 = "WEATHER_ICON_3";
 	private static final String WEATHER_ICON_URL_3 = "http://openweathermap.org/img/w/WEATHER_ICON_3.png";
 	private static final double ATMOSPHERE_TEMPERATURE_3 = 3.0;
+	private static final double WIND_DEGREES_3 = 135.0;
+	private static final double WIND_SPEED_3 = 6.0;
 
 	private static final String WEATHER_DESCRIPTION_4 = "WEATHER_DESCRIPTION_4";
 	private static final String WEATHER_ICON_4 = "WEATHER_ICON_4";
 	private static final String WEATHER_ICON_URL_4 = "http://openweathermap.org/img/w/WEATHER_ICON_4.png";
 	private static final double ATMOSPHERE_TEMPERATURE_4 = 4.0;
+	private static final double WIND_DEGREES_4 = 180.0;
+	private static final double WIND_SPEED_4 = 8.0;
 
 	@Mock
 	private CityForecast cityForecast0Length;
@@ -81,6 +90,14 @@ public class MultiDayForecastMapperTests {
 	private Atmosphere atmosphere3;
 	@Mock
 	private Atmosphere atmosphere4;
+	@Mock
+	private Wind wind1;
+	@Mock
+	private Wind wind2;
+	@Mock
+	private Wind wind3;
+	@Mock
+	private Wind wind4;
 
 	private MultiDayForecastMapper multiDayForecastMapper;
 
@@ -89,6 +106,9 @@ public class MultiDayForecastMapperTests {
 		multiDayForecastMapper = new MultiDayForecastMapper();
 
 		when(atmosphere1.getTemp()).thenReturn(ATMOSPHERE_TEMPERATURE_1);
+
+		when(wind2.getDegrees()).thenReturn(WIND_DEGREES_1);
+		when(wind2.getSpeed()).thenReturn(WIND_SPEED_1);
 
 		when(weather1.getDescription()).thenReturn(WEATHER_DESCRIPTION_1);
 		when(weather1.getIcon()).thenReturn(WEATHER_ICON_1);
@@ -99,8 +119,12 @@ public class MultiDayForecastMapperTests {
 		when(forecast1.getDate()).thenReturn(FORECAST_TIME_1);
 		when(forecast1.getWeather()).thenReturn(weathers1);
 		when(forecast1.getAtmosphere()).thenReturn(atmosphere1);
+		when(forecast1.getWind()).thenReturn(wind1);
 
 		when(atmosphere2.getTemp()).thenReturn(ATMOSPHERE_TEMPERATURE_2);
+
+		when(wind2.getDegrees()).thenReturn(WIND_DEGREES_2);
+		when(wind2.getSpeed()).thenReturn(WIND_SPEED_2);
 
 		when(weather2.getDescription()).thenReturn(WEATHER_DESCRIPTION_2);
 		when(weather2.getIcon()).thenReturn(WEATHER_ICON_2);
@@ -111,8 +135,12 @@ public class MultiDayForecastMapperTests {
 		when(forecast2.getDate()).thenReturn(FORECAST_TIME_2);
 		when(forecast2.getWeather()).thenReturn(weathers2);
 		when(forecast2.getAtmosphere()).thenReturn(atmosphere2);
+		when(forecast2.getWind()).thenReturn(wind2);
 
 		when(atmosphere3.getTemp()).thenReturn(ATMOSPHERE_TEMPERATURE_3);
+
+		when(wind2.getDegrees()).thenReturn(WIND_DEGREES_3);
+		when(wind2.getSpeed()).thenReturn(WIND_SPEED_3);
 
 		when(weather3.getDescription()).thenReturn(WEATHER_DESCRIPTION_3);
 		when(weather3.getIcon()).thenReturn(WEATHER_ICON_3);
@@ -123,8 +151,12 @@ public class MultiDayForecastMapperTests {
 		when(forecast3.getDate()).thenReturn(FORECAST_TIME_3);
 		when(forecast3.getWeather()).thenReturn(weathers3);
 		when(forecast3.getAtmosphere()).thenReturn(atmosphere3);
+		when(forecast3.getWind()).thenReturn(wind3);
 
 		when(atmosphere4.getTemp()).thenReturn(ATMOSPHERE_TEMPERATURE_4);
+
+		when(wind2.getDegrees()).thenReturn(WIND_DEGREES_4);
+		when(wind2.getSpeed()).thenReturn(WIND_SPEED_4);
 
 		when(weather4.getDescription()).thenReturn(WEATHER_DESCRIPTION_4);
 		when(weather4.getIcon()).thenReturn(WEATHER_ICON_4);
@@ -135,6 +167,7 @@ public class MultiDayForecastMapperTests {
 		when(forecast4.getDate()).thenReturn(FORECAST_TIME_4);
 		when(forecast4.getWeather()).thenReturn(weathers4);
 		when(forecast4.getAtmosphere()).thenReturn(atmosphere4);
+		when(forecast4.getWind()).thenReturn(wind4);
 
 		List<Forecast> forecast1Length = new ArrayList<>();
 		forecast1Length.add(forecast1);
@@ -168,12 +201,10 @@ public class MultiDayForecastMapperTests {
 	}
 
 	@Test
-	public void when_cityForecastHasNoForecasts_then_multiDayForecastHasNoDays() {
+	public void when_cityForecastHasNoForecasts_then_return_null() {
 		MultiDayForecast forecast = multiDayForecastMapper.map(cityForecast0Length, 5);
 
-		assertNotNull(forecast);
-		assertNotNull(forecast.dayForecasts);
-		assertEquals(0, forecast.dayForecasts.size());
+		assertEquals(null, forecast);
 	}
 
 	@Test

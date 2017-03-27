@@ -30,7 +30,6 @@ The app is a standard single Activity Android project utilising a ViewPager cont
  - Implement caching for offline use
  - Add  a pull-to-refresh control
  - More information displayed from the service i.e. min/max temperatures
- - Specifically add a custom view that shows the wind speed and direction
  - Add support better suppot for multiple device sizes
  - Add landscape orientation support
  - Add light and dark themes

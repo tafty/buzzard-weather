@@ -56,6 +56,8 @@ public class MultiDayForecastMapper {
 						new TimeForecast(
 								(Calendar) date.clone(),
 								forecast.getAtmosphere().getTemp(),
+								forecast.getWind().getSpeed(),
+								forecast.getWind().getDegrees(),
 								description,
 								icon));
 			}

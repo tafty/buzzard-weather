@@ -17,6 +17,11 @@
         android:layout_height="@android:dimen/app_icon_size"
         android:scaleType="fitXY"/>
 
+    <com.sixtyfourthpixel.buzzardweather.ui.widget.WindView
+        android:id="@+id/wind_view"
+        android:layout_width="@android:dimen/app_icon_size"
+        android:layout_height="@android:dimen/app_icon_size"/>
+
     <TextView
         android:id="@+id/temperature"
         style="@style/Cell.Text"/>
